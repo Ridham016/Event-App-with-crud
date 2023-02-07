@@ -1,0 +1,67 @@
+<ion-header>
+  <script type="text/javascript" src="cordova.js"></script>
+  <ion-toolbar>
+    <ion-title>Welcome Admin!</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-refresher slot="fixed">
+    <ion-refresher-content>
+    </ion-refresher-content>
+  </ion-refresher>
+  <ion-text color="primary">
+    <h1>USER Data</h1>
+  </ion-text>
+<ion-grid [fixed]="true">
+  <ion-row>
+    <ion-col size="2">Fullname</ion-col>
+    <ion-col size="3">Email</ion-col>
+    <ion-col size="4">Event</ion-col>
+    <ion-col>Modify</ion-col>
+
+  </ion-row>
+    <ion-row *ngFor="let item of listData">
+
+      <ion-col size="2">
+        {{ item.Fullname }}
+        </ion-col>
+        <ion-col size="3">
+          {{ item.Email }}
+          </ion-col>
+          <ion-col size="4">
+            {{ item.TypeofEvent}}
+            </ion-col>
+            <ion-col>
+
+                <button ion-button clear (click)="updateTask(item.id)">
+                  <ion-icon name="create" size="large"></ion-icon>
+                </button>
+
+            </ion-col>
+            <ion-col>
+              <div>
+                <button ion-button clear (click)="presentDeleteConfirm(item.id)">
+                  <ion-icon name="trash-outline" size="large"></ion-icon>
+                </button>
+              </div>
+            </ion-col>
+      </ion-row>
+    </ion-grid>
+    <br>
+    <ion-button [routerLink]="['/event-reg']" expand="block" color="primary">ADD EVENT</ion-button>
+    <br>
+    <ion-button [routerLink]="['/event-list']" expand="block" color="danger">EVENT LIST</ion-button>
+
+
+     <ion-fab slot="fixed"  vertical="bottom" horizontal="end">
+    <ion-fab-button>
+      <ion-icon name="chevron-up-circle" size="large" ></ion-icon>
+    </ion-fab-button>
+    <ion-fab-list side="top">
+      <ion-fab-button>
+        <ion-icon name="log-out-outline" (click)="Logout()" size="large" ></ion-icon>
+      </ion-fab-button>
+    </ion-fab-list>
+  </ion-fab>
+</ion-content>

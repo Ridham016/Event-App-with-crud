@@ -1,0 +1,37 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title size="large">
+    USER DASHBOARD
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div>
+    <span>UPCOMING EVENT</span>
+  </div>
+  <div>
+    <ion-card color="success" *ngFor="let event of listData" (click)="selectedEvent = event.id">
+      <ion-card-header>
+        <ion-card-title>{{ event.Title }}</ion-card-title>
+      </ion-card-header>
+      <ion-card-content *ngIf="event.id === selectedEvent">
+        <p>Date: {{ event.DateNTime }}</p>
+        <p>Duration: {{ event.Duration }}</p>
+        <p>Location: {{ event.Venue }}</p>
+        <p>Description: {{ event.Description }}</p>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+    <ion-fab-button>
+      <ion-icon name="chevron-up-circle"></ion-icon>
+    </ion-fab-button>
+    <ion-fab-list side="top">
+      <ion-fab-button>
+        <ion-icon name="log-out-outline" (click)="Logout()"></ion-icon>
+      </ion-fab-button>
+    </ion-fab-list>
+  </ion-fab>
+</div>
+</ion-content>

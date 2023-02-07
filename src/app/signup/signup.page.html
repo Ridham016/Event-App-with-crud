@@ -1,0 +1,43 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Sign UP</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <div id="container">
+  <ion-card  color="black">
+  <form [formGroup]="gg" (submit)="onSubmit()" >
+    <ion-item lines="full">
+      <ion-label position="floating">FUll Name</ion-label>
+      <ion-input type="text" required formControlName="fname"></ion-input>
+    </ion-item>
+    <ion-item lines="full">
+      <ion-label position="floating" >Email</ion-label>
+      <ion-input type="email" required formControlName="email"></ion-input>
+    </ion-item>
+    <ion-item lines="full">
+      <ion-label position="floating">Password</ion-label>
+      <ion-input type="password" minlength="1" required formControlName="password"></ion-input>
+    </ion-item>
+    <ion-item lines="full">
+      <ion-select placeholder="Intrested Event" formControlName="event">
+        <ion-select-option value="Recruting_Event">Recruting Event</ion-select-option>
+        <ion-select-option value="Product_Launch">Product Launch</ion-select-option>
+        <ion-select-option value="Networking">Networking Event</ion-select-option>
+        <ion-select-option value="Team_Building">Team Building Events</ion-select-option>
+        <ion-select-option value="Conferance">Conferance</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-row>
+      <ion-col>
+        <ion-button type="submit" color="danger" expand="block" [disabled]="!gg.valid">Sign Up</ion-button>
+      </ion-col>
+    </ion-row>
+  </form>
+  </ion-card>
+  </div>
+</ion-content>
+

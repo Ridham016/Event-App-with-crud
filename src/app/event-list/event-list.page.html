@@ -1,0 +1,32 @@
+<ion-header>
+  <script type="text/javascript" src="cordova.js"></script>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>eventList</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-accordion-group>
+  <ion-accordion *ngFor="let item of listData" value={{item.Title}}>
+    <ion-item slot="header" color="light">
+      <ion-label class="noob1">{{ item.Title }}</ion-label>
+    </ion-item>
+    <div class="ion-padding" slot="content">
+     <div class="noob">
+      DATE and TIME :-
+    </div>
+    {{ item.DateNTime}}<br>
+    <div class="noob">Duration :- </div> {{ item.Duration}}<br>
+    <div class="noob"> Description :-</div>{{ item.Description}}<br>
+    <div class="noob">Venue :-</div>{{ item.Venue}}<br>
+    <div class="noob">Type of event :-</div>{{ item.TypeofEvent}}<br>
+    <ion-button [disabled]="isDisabled(item.DateNTime)" (click)="updateEvent(item.id)">
+      <ion-icon name="create" size="large"></ion-icon>
+    </ion-button>
+    </div>
+</ion-accordion>
+</ion-accordion-group>
+</ion-content>

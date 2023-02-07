@@ -1,0 +1,25 @@
+<ion-header>
+  <script type="text/javascript" src="cordova.js"></script>
+
+  <ion-toolbar>
+    <ion-title>
+      Ionic Form
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="auth-form" >
+
+  <div id="container">
+<ion-card>
+  <ion-grid>
+    <ion-row >
+      <ion-col align-self-center >
+        <ion-button [routerLink]="['/signup']" expand="block" color="primary">SIGNUP</ion-button>
+        <span class="already">Already a user???</span>
+        <ion-button [routerLink]="['/login']" expand="block" color="danger">LOGIN</ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-card>
+</div>
+</ion-content>

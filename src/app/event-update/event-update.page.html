@@ -1,0 +1,53 @@
+<ion-header>
+  <script type="text/javascript" src="cordova.js"></script>
+
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Update Event</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <form [formGroup]="gg" (submit)="onSubmit()" >
+    <ion-item lines="full">
+      <ion-label position="floating">Title</ion-label>
+      <ion-input type="text" required formControlName="title"></ion-input>
+    </ion-item>
+   <ion-item lines="full">
+      <ion-label position="stacked">Event Date & Time</ion-label><br>
+      <ion-datetime-button datetime="datetime"></ion-datetime-button>
+      <ion-modal [keepContentsMounted]="true">
+        <ng-template>
+          <ion-datetime id="datetime" displayFormat="MM/DD/YYYY HH:mm" min="{{currentDate}}" pickerFormat="MM/DD/YYYY HH:mm"  formControlName="dnt"></ion-datetime>
+        </ng-template>
+      </ion-modal><BR>
+    </ion-item>
+    <ion-item lines="full">
+      <ion-label position="floating">Duration</ion-label>
+      <ion-input type="text"  pattern="[1-5]"formControlName="dur"></ion-input>
+    </ion-item>
+    <ion-item lines="full">
+      <ion-label position="floating" >Description</ion-label>
+      <ion-input type="text" formControlName="desc" maxlength="200"></ion-input>
+    </ion-item>
+    <ion-item lines="full">
+      <ion-label position="floating">Venue</ion-label>
+      <ion-input type="text" required formControlName="Venue" maxlength="200"></ion-input>
+    </ion-item>
+    <ion-item lines="full">
+      <ion-select required placeholder="Type Of Event" formControlName="tof">
+        <ion-select-option value="Recruting_Event">Recruting Event</ion-select-option>
+        <ion-select-option value="Product_Launch">Product Launch</ion-select-option>
+        <ion-select-option value="Networking">Networking Event</ion-select-option>
+        <ion-select-option value="Team_Building">Team Building Events</ion-select-option>
+        <ion-select-option value="Conferance">Conferance</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-row>
+      <ion-col>
+        <ion-button type="submit" color="danger" expand="block" [disabled]="!gg.valid">Register Event</ion-button>
+      </ion-col>
+    </ion-row>
+  </form>
+</ion-content>

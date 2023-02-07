@@ -1,0 +1,33 @@
+<ion-header>
+  <script type="text/javascript" src="cordova.js"></script>
+
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Log In</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-card>
+  <form [formGroup]="log" (submit)="onSubmit()">
+    <ion-item lines="full">
+      <ion-label position="floating">Email</ion-label>
+      <ion-input type="email" required formControlName="email"></ion-input>
+    </ion-item>
+    <ion-item lines="full">
+      <ion-label position="floating">Password</ion-label>
+      <ion-input type="password" required formControlName="password"></ion-input>
+    </ion-item>
+    <ion-row>
+      <ion-col>
+        <ion-button type="submit" color="danger"  expand="block" [disabled]="!log.valid">Log In</ion-button>
+           </ion-col>
+    </ion-row>
+  </form>
+  <ion-item>
+    <ion-checkbox [(ngModel)]="rememberMe" slot="start"></ion-checkbox>
+    <ion-label>Remember Me</ion-label>
+  </ion-item>
+</ion-card>
+</ion-content>
