@@ -1,9 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AlertController, IonDatetime, NavController } from '@ionic/angular';
-import { DbService } from '../services/db.service';
+import { DbService,Event } from '../services/db.service';
 
 @Component({
   selector: 'app-event-update',
@@ -15,18 +15,19 @@ export class EventUpdatePage implements OnInit {
   gg: FormGroup |any;
   currentDate = new Date().toISOString();
   id: any;
-
+  event:Event={
+    Title: '',
+    id: 0,
+    DateNTime: '',
+    Duration: 0,
+    Description: '',
+    Venue: '',
+    TypeofEvent: ''
+  }
 
 
   constructor(private formBuilder: FormBuilder,private db:DbService, private navController: NavController,private activatedRoute: ActivatedRoute,private alertController: AlertController,private router: Router,private http: HttpClient)  {
-    this.gg = this.formBuilder.group({
-      title: ['', Validators.required],
-      dnt: ['', Validators.required],
-      dur: ['', Validators.required],
-      desc: ['', Validators.required],
-      tof: ['', Validators.required],
-      Venue: ['', Validators.required]
-    });
+
     this.id=this.activatedRoute.snapshot.queryParams['id'];
   }
 
@@ -40,14 +41,14 @@ export class EventUpdatePage implements OnInit {
   ngOnInit(): void {
 
   }
-  onSubmit() {
-    if (this.gg.valid) {
-      const f=this.gg.get('title').value;
-      const em=this.gg.get('dnt').value;
-      const p=this.gg.get('dur').value;
-      const e=this.gg.get('desc').value;
-      const t=this.gg.get('tof').value;
-      const v=this.gg.get('Venue').value;
+  onSubmit(form:NgForm) {
+    if (form.valid) {
+      const f=this.event.Title;
+      const em=this.event.DateNTime;
+      const p=this.event.Duration;
+      const e=this.event.Description;
+      const t=this.event.TypeofEvent;
+      const v=this.event.Venue;
       this.sendData(f,em,p,e,t,v);
     }
   }

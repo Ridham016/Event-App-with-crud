@@ -1,9 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AlertController, IonDatetime, NavController } from '@ionic/angular';
-import { DbService } from '../services/db.service';
+import { DbService,Event } from '../services/db.service';
 
 @Component({
   selector: 'app-event-reg',
@@ -11,29 +11,27 @@ import { DbService } from '../services/db.service';
   styleUrls: ['./event-reg.page.scss'],
 })
 export class EventRegPage implements OnInit {
-  gg: FormGroup |any;
-  currentDate = new Date().toISOString();
 
+  currentDate = new Date().toISOString();
+  event:Event={
+    Title: '',
+    id: 0,
+    DateNTime: '',
+    Duration: 0,
+    Description: '',
+    Venue: '',
+    TypeofEvent: ''
+  }
   data:any;
 
 
 
 
   constructor(private formBuilder: FormBuilder,private db:DbService, private navController: NavController,private alertController: AlertController,private router: Router,private http: HttpClient)  {
-    this.gg = this.formBuilder.group({
-      title: ['', Validators.required],
-      dnt: ['', Validators.required],
-      dur: ['', Validators.required],
-      desc: ['', Validators.required],
-      tof: ['', Validators.required],
-      Venue: ['', Validators.required]
-    });
-
 
   }
 
   sendData(title:string,date:string,dur:number,desc:string,tof1:string,venu1:string ) {
-    const g={title:""+title,dnt:''+date,dur:''+dur,desc:''+desc,tof:""+tof1,venue:""+venu1}
     this.db.addEvent(title,date,dur,desc,tof1,venu1).then(_=>{
       this.showAlert1();
     })
@@ -44,14 +42,14 @@ export class EventRegPage implements OnInit {
   ngOnInit(): void {
 
   }
-  onSubmit() {
-    if (this.gg.valid) {
-      const f=this.gg.get('title').value;
-      const em=this.gg.get('dnt').value;
-      const p=this.gg.get('dur').value;
-      const e=this.gg.get('desc').value;
-      const t=this.gg.get('tof').value;
-      const v=this.gg.get('Venue').value;
+  onSubmit(form:NgForm) {
+    if (form.valid) {
+      const f=this.event.Title;
+      const em=this.event.DateNTime;
+      const p=this.event.Duration;
+      const e=this.event.Description;
+      const t=this.event.TypeofEvent;
+      const v=this.event.Venue;
       this.sendData(f,em,p,e,t,v);
     }
   }

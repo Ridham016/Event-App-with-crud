@@ -9,34 +9,34 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <form [formGroup]="gg" (submit)="onSubmit()" >
+  <form (ngSubmit)="onSubmit(form)" #form="ngForm" >
     <ion-item lines="full">
       <ion-label position="floating">Title</ion-label>
-      <ion-input type="text" required formControlName="title"></ion-input>
+      <ion-input type="text" required name="Title" [(ngModel)]="event.Title"></ion-input>
     </ion-item>
    <ion-item lines="full">
       <ion-label position="stacked">Event Date & Time</ion-label><br>
       <ion-datetime-button datetime="datetime"></ion-datetime-button>
       <ion-modal [keepContentsMounted]="true">
         <ng-template>
-          <ion-datetime id="datetime" displayFormat="MM/DD/YYYY HH:mm" min="{{currentDate}}" pickerFormat="MM/DD/YYYY HH:mm"  formControlName="dnt"></ion-datetime>
+          <ion-datetime id="datetime" displayFormat="MM/DD/YYYY HH:mm" min="{{currentDate}}" pickerFormat="MM/DD/YYYY HH:mm" name="DateNTime" [(ngModel)]="event.DateNTime"></ion-datetime>
         </ng-template>
       </ion-modal><BR>
     </ion-item>
     <ion-item lines="full">
       <ion-label position="floating">Duration</ion-label>
-      <ion-input type="text" pattern="[1-5]"formControlName="dur"></ion-input>
+      <ion-input type="text" pattern="[1-5]" name="Duration" [(ngModel)]="event.Duration"></ion-input>
     </ion-item>
     <ion-item lines="full">
       <ion-label position="stacked" >Description</ion-label>
-      <ion-input type="text" formControlName="desc" maxlength="200"></ion-input>
+      <ion-input type="text"name="Description" [(ngModel)]="event.Description" maxlength="200"></ion-input>
     </ion-item>
     <ion-item lines="full">
       <ion-label position="stacked">Venue</ion-label>
-      <ion-input type="text" required formControlName="Venue" maxlength="200"></ion-input>
+      <ion-input type="text" required name="Venue" [(ngModel)]="event.Venue" maxlength="200"></ion-input>
     </ion-item>
     <ion-item lines="full">
-      <ion-select required placeholder="Type Of Event" formControlName="tof">
+      <ion-select required placeholder="Type Of Event" name="TypeofEvent" [(ngModel)]="event.TypeofEvent">
         <ion-select-option value="Recruting_Event">Recruting Event</ion-select-option>
         <ion-select-option value="Product_Launch">Product Launch</ion-select-option>
         <ion-select-option value="Networking">Networking Event</ion-select-option>
@@ -46,7 +46,7 @@
     </ion-item>
     <ion-row>
       <ion-col>
-        <ion-button type="submit" color="danger" expand="block" [disabled]="!gg.valid">Register Event</ion-button>
+        <ion-button type="submit" color="danger" expand="block" [disabled]="!form.valid">Register Event</ion-button>
       </ion-col>
     </ion-row>
   </form>

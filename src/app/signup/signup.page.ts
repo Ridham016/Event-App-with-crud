@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators ,FormGroup} from '@angular/forms';
+import { NgForm} from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Router} from '@angular/router';
 import { AlertController } from '@ionic/angular';
-import { DbService } from '../services/db.service';
+import { DbService,Uesr } from '../services/db.service';
 
 @Component({
   selector: 'app-signup',
@@ -11,17 +11,14 @@ import { DbService } from '../services/db.service';
   styleUrls: ['./signup.page.scss'],
 })
 export class SignupPage implements OnInit {
-gg: FormGroup |any;
+ user:Uesr={
+   Fullname: '', Email: '', Password: '', TypeofEvent: '',
+   id: 0
+ };
   data: any;
 
+constructor(private db:DbService,private router: Router,private alertController: AlertController,private http: HttpClient)  {
 
-constructor(private db:DbService,private formBuilder: FormBuilder,private router: Router,private alertController: AlertController,private http: HttpClient)  {
-  this.gg = this.formBuilder.group({
-    email: ['', Validators.compose([Validators.required, Validators.email])],
-    password: ['', Validators.required],
-    fname: ['', Validators.required],
-    event: ['', Validators.required]
-  });
 }
 sendData(fullname1:string,email1:string,password1:string,event1:string) {
 
@@ -37,14 +34,9 @@ ngOnInit() {
 }
 
 
-onSubmit() {
-  if (this.gg.valid) {
-    const f=this.gg.get('fname').value;
-    const em=this.gg.get('email').value;
-    const p=this.gg.get('password').value;
-    const e=this.gg.get('event').value;
-    this.sendData(f,em,p,e);
-  }
+onSubmit(form:NgForm ) {
+    this.sendData(this.user.Fullname,this.user.Email,this.user.Password,this.user.TypeofEvent);
+
 }
   async showAlertF() {
     const alert = await this.alertController.create({

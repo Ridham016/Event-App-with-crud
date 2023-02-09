@@ -22,7 +22,7 @@ export class EventListPage implements OnInit {
   getData(){
     this.db.dbState().subscribe(rdy => {
       if (rdy) {
-        this.db.fetchUserFavEvents().subscribe((devs) => {
+        this.db.fetchEvents().subscribe((devs) => {
           console.log('fetched');
           this.listData= devs;
           console.log(this.listData);

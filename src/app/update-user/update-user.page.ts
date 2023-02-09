@@ -1,9 +1,9 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit, ɵpatchComponentDefWithScope } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
-import { DbService } from '../services/db.service';
+import { DbService, Uesr } from '../services/db.service';
 
 
 @Component({
@@ -13,17 +13,15 @@ import { DbService } from '../services/db.service';
 })
 export class UpdateUserPage implements OnInit {
   gg1: any;
-  id:any;
   data:any;
+  user:Uesr={
+    Fullname: '', Email: '', Password: '', TypeofEvent: '',
+    id: 0
+  };
 
-  constructor(private formBuilder: FormBuilder,private db :DbService,private router: Router,private http: HttpClient,private activatedRoute: ActivatedRoute, private alertController: AlertController) {
-    this.gg1 = this.formBuilder.group({
-      password: ['', Validators.required],
-      fname: ['', Validators.required],
-      event: ['', Validators.required]
-    });
+  constructor(private db :DbService,private router: Router,private http: HttpClient,private activatedRoute: ActivatedRoute, private alertController: AlertController) {
 
-    this.id=this.activatedRoute.snapshot.queryParams['id'];
+    this.user.id=this.activatedRoute.snapshot.queryParams['id'];
   }
   sendData(fullname1:string,password1:string,event1:string,id:number) {
     this.db.updateUser(fullname1,password1,event1).then(_=>{
@@ -57,12 +55,9 @@ export class UpdateUserPage implements OnInit {
   }
 
 
-  onSubmit1() {
-      const f=this.gg1.get('fname').value;
-      const p=this.gg1.get('password').value;
-      const e=this.gg1.get('event').value;
-      const i=this.id;
-      this.sendData(f,p,e,i);
-
+  onSubmit(form:NgForm) {
+    if (form.valid) {
+      this.sendData(this.user.Fullname,this.user.Password,this.user.TypeofEvent,this.user.id);
+    }
   }
 }

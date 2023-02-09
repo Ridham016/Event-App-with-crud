@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { DbService, Uesr } from '../services/db.service';
@@ -11,17 +11,20 @@ import { DbService, Uesr } from '../services/db.service';
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
+  user:Uesr={
+    Fullname: '', Email: '', Password: '', TypeofEvent: '',
+    id: 0
+  };
   listData:Uesr[]=[];
-log: FormGroup | any;
 Status:any;
   data: any;
   id: any;
   rememberMe = false;
 
-onSubmit() {
+onSubmit(form:NgForm) {
 
-  const em=this.log.get('email').value;
-  const p=this.log.get('password').value;
+  const em=this.user.Email;
+  const p=this.user.Password;
   this.getData(em,p);
 
   if (this.rememberMe) {
@@ -31,15 +34,12 @@ onSubmit() {
 
 }
 
-  constructor(private formBuilder: FormBuilder,private db:DbService,private router: Router,private http: HttpClient,private alertController: AlertController) {
-    this.log = this.formBuilder.group({
-      email: ['', Validators.compose([Validators.required, Validators.email])],
-      password: ['', Validators.required]
-    });
+  constructor(private db:DbService,private router: Router,private http: HttpClient,private alertController: AlertController) {
+
   }
   getData(email1:string,password1:string) {
 
-      if(this.log.get('email').value=='admin@mail.com' && this.log.get('password').value=='admin12345'){
+      if(this.user.Email=='admin@mail.com' && this.user.Password=='admin12345'){
         this.router.navigate(['/admin-home']);
        }
        else {
@@ -67,8 +67,8 @@ onSubmit() {
     const storedUsername = localStorage.getItem('username');
     const storedPassword = localStorage.getItem('password');
     if (storedUsername && storedPassword) {
-      this.log.get('email').setValue(storedUsername);
-      this.log.get('password').setValue( storedPassword);
+      this.user.Email=storedUsername;
+      this.user.Password= storedPassword;
       this.rememberMe = true;
     }
 

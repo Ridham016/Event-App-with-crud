@@ -1,24 +1,25 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>update-user</ion-title>
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
+    <ion-title>Sign UP</ion-title>
   </ion-toolbar>
 </ion-header>
-
 <ion-content>
-  <form [formGroup]="gg1" (submit)="onSubmit1()" >
+  <div id="container">
+  <ion-card  color="black">
+  <form (ngSubmit)="onSubmit(form)" #form="ngForm">
     <ion-item lines="full">
       <ion-label position="floating">FUll Name</ion-label>
-      <ion-input type="text" required formControlName="fname"></ion-input>
+      <ion-input type="text" required name="Fullname" [(ngModel)]="user.Fullname"></ion-input>
     </ion-item>
     <ion-item lines="full">
       <ion-label position="floating">Password</ion-label>
-      <ion-input type="password" required formControlName="password"></ion-input>
+      <ion-input type="password" minlength="1" name="Password" required [(ngModel)]="user.Password"></ion-input>
     </ion-item>
     <ion-item lines="full">
-      <ion-select placeholder="Intrested Event" formControlName="event">
+      <ion-select placeholder="Intrested Event" name="TypeofEvent" [(ngModel)]="user.TypeofEvent">
         <ion-select-option value="Recruting_Event">Recruting Event</ion-select-option>
         <ion-select-option value="Product_Launch">Product Launch</ion-select-option>
         <ion-select-option value="Networking">Networking Event</ion-select-option>
@@ -28,9 +29,11 @@
     </ion-item>
     <ion-row>
       <ion-col>
-        <ion-button type="submit" color="danger"  expand="block"  >Sign Up</ion-button>
+        <ion-button type="submit" color="danger" expand="block" [disabled]="!form.valid">Sign Up</ion-button>
       </ion-col>
     </ion-row>
   </form>
-
+  </ion-card>
+  </div>
 </ion-content>
+
